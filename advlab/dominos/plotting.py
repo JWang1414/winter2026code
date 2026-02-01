@@ -115,7 +115,8 @@ def plot_data(plot_params):
 
     # Save or show plot
     if SAVE_PLOTS:
-        plt.savefig(f"{SAVE_PATH}{plot_params['title'].replace(' ', '_')}.png")
+        filename = plot_params["title"].replace(" ", "_").replace("/", "-")
+        plt.savefig(f"{SAVE_PATH}{filename}.png")
         plt.clf()
     else:
         plt.show()
