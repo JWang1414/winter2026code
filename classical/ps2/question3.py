@@ -8,7 +8,7 @@ SAVE_PATH = 'images/'
 
 # Plot settings
 plt.rcParams["figure.dpi"] = 150  # for crisper figures
-plt.rcParams["font.size"] = "16"  # change the font size
+plt.rcParams["font.size"] = "12"  # change the font size
 
 # Physical parameters
 drive_period = 2 * pi  # driving period 2*pi
@@ -50,13 +50,13 @@ plt.xlim(time[0] / drive_period, time[-1] / drive_period)
 
 plt.xlabel(r"$t/T$")
 plt.ylabel("$x(t)$")
-plt.title("Response of a Harmonic Oscillator to a Square Wave Forcing")
+plt.title(f"Square wave response for $\\omega_0={omega0[0]}$ and $Q={q_factor}$")
 plt.legend()
 plt.tight_layout()
 plt.grid()
 
 if SAVE_FIGURE:
-    plt.savefig(SAVE_PATH + 'square_wave_response.png')
+    plt.savefig(SAVE_PATH + f'square_wave_response_{omega0[0]}_{q_factor}.png')
     plt.clf()
 else:
     plt.show()
