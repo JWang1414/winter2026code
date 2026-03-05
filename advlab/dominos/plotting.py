@@ -6,6 +6,9 @@ import pandas as pd
 # Try to fit the curve(?). It disagrees with data
 # If I have a lot of time, make this code nicer
 
+# Change the font size
+plt.rcParams.update({'font.size': 14})
+
 # Global variables
 SAVE_PLOTS = False
 SAVE_PATH = 'images/'
@@ -19,6 +22,7 @@ sandpaper_raw = pd.read_csv('advlab/dominos/paper.csv')
 # Organize data into dictionaries
 acceleration_data = {
     "domino": accel_raw['Average'].to_numpy(),
+    "domino_unc": accel_raw['Average.1'].to_numpy(),
     "speed": accel_raw['Speed'].to_numpy(),
     "speed_unc": accel_raw['Speed.1'].to_numpy(),
     "1/C": accel_raw['1/C'].to_numpy(),
@@ -27,6 +31,7 @@ acceleration_data = {
 
 nopaper_data = {
     "spacing": no_sandpaper_raw['Spacing'].to_numpy(),
+    "spacing_unc": no_sandpaper_raw['Spacing.1'].to_numpy(),
     "speed": no_sandpaper_raw['Speed'].to_numpy(),
     "speed_unc": no_sandpaper_raw['Speed.1'].to_numpy(),
     "1/C": no_sandpaper_raw['1/C'].to_numpy(),
@@ -35,6 +40,7 @@ nopaper_data = {
 
 paper_data = {
     "spacing": sandpaper_raw['Spacing'].to_numpy(),
+    "spacing_unc": sandpaper_raw['Spacing.1'].to_numpy(),
     "speed": sandpaper_raw['Speed'].to_numpy(),
     "speed_unc": sandpaper_raw['Speed.1'].to_numpy(),
     "1/C": sandpaper_raw['1/C'].to_numpy(),
@@ -44,6 +50,7 @@ paper_data = {
 # Setup plotting parameters in dictionaries
 acceleration_speed = {
     "x": acceleration_data["domino"],
+    "xerr": acceleration_data["domino_unc"],
     "y": acceleration_data["speed"],
     "yerr": acceleration_data["speed_unc"],
     "title": "Average Speed vs Domino",
@@ -53,6 +60,7 @@ acceleration_speed = {
 
 acceleration_c = {
     "x": acceleration_data["domino"],
+    "xerr": acceleration_data["domino_unc"],
     "y": acceleration_data["1/C"],
     "yerr": acceleration_data["1/C_unc"],
     "title": "Calculated 1/C for each Domino",
@@ -62,6 +70,7 @@ acceleration_c = {
 
 nopaper_speed = {
     "x": nopaper_data["spacing"],
+    "xerr": nopaper_data["spacing_unc"],
     "y": nopaper_data["speed"],
     "yerr": nopaper_data["speed_unc"],
     "title": "Average Terminal Velocity vs Spacing (w/o Sandpaper)",
@@ -71,6 +80,7 @@ nopaper_speed = {
 
 nopaper_c = {
     "x": nopaper_data["spacing"],
+    "xerr": nopaper_data["spacing_unc"],
     "y": nopaper_data["1/C"],
     "yerr": nopaper_data["1/C_unc"],
     "title": "Calculated 1/C for each Spacing (w/o Sandpaper)",
@@ -80,6 +90,7 @@ nopaper_c = {
 
 paper_speed = {
     "x": paper_data["spacing"],
+    "xerr": paper_data["spacing_unc"],
     "y": paper_data["speed"],
     "yerr": paper_data["speed_unc"],
     "title": "Average Terminal Velocity vs Spacing (w/Sandpaper)",
@@ -89,6 +100,7 @@ paper_speed = {
 
 paper_c = {
     "x": paper_data["spacing"],
+    "xerr": paper_data["spacing_unc"],
     "y": paper_data["1/C"],
     "yerr": paper_data["1/C_unc"],
     "title": "Calculated 1/C for each Spacing (w/Sandpaper)",
@@ -103,7 +115,7 @@ def plot_data(plot_params):
 
     # Plot data
     plt.errorbar(plot_params["x"], plot_params["y"],
-                 yerr=plot_params["yerr"],
+                 xerr=plot_params["xerr"], yerr=plot_params["yerr"],
                  fmt='o')
 
     # Labels
