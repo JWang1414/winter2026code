@@ -64,8 +64,8 @@ acceleration_c = {
     "y": acceleration_data["1/C"],
     "yerr": acceleration_data["1/C_unc"],
     "title": "Calculated 1/C for each Domino",
-    "xlabel": "1/C",
-    "ylabel": "Speed (cm/s)",
+    "xlabel": "Domino Number",
+    "ylabel": "1/C",
 }
 
 nopaper_speed = {
@@ -84,8 +84,8 @@ nopaper_c = {
     "y": nopaper_data["1/C"],
     "yerr": nopaper_data["1/C_unc"],
     "title": "Calculated 1/C for each Spacing (w/o Sandpaper)",
-    "xlabel": "1/C",
-    "ylabel": "Speed (cm/s)",
+    "xlabel": "Spacing (Multiples of Domino Thickness)",
+    "ylabel": "1/C",
 }
 
 paper_speed = {
@@ -104,8 +104,8 @@ paper_c = {
     "y": paper_data["1/C"],
     "yerr": paper_data["1/C_unc"],
     "title": "Calculated 1/C for each Spacing (w/Sandpaper)",
-    "xlabel": "1/C",
-    "ylabel": "Speed (cm/s)",
+    "xlabel": "Spacing (Multiples of Domino Thickness)",
+    "ylabel": "1/C",
 }
 
 def plot_data(plot_params):
