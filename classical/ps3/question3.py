@@ -80,7 +80,7 @@ print(f"Period: {period:.3f}")
 
 # ----- Plotting -----
 
-plt.figure(figsize=(4.5, 3))
+plt.figure()
 
 # Position plot
 plt.subplot(2, 1, 1)
@@ -99,10 +99,10 @@ plt.grid()
 
 # Add a title over both plots
 plt.suptitle("$r_0 = {0:.2f}r_m$".format(radi[0]))
+plt.tight_layout()
 
 # Save/show figure
 if SAVE_FIGURE:
     plt.savefig("LJ_r0={0:.2f}.png".format(radi[0]))
 else:
-    plt.tight_layout()
     plt.show()
