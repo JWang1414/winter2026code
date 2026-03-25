@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Define global variables
+SAVE_FIGURES = True
+SAVE_LOCATION = "images/"
+
 
 def phi_dot(theta):
     return -np.sin(theta)
@@ -18,7 +22,7 @@ def euler_cromer_step(theta, phi, dt):
 
 def forward_euler_step(theta, phi, dt):
     theta_new = theta + theta_dot(phi) * dt
-    phi_new = phi + phi_dot(theta_new) * dt
+    phi_new = phi + phi_dot(theta) * dt
     return theta_new, phi_new
 
 
@@ -27,9 +31,9 @@ theta = [np.pi / 4]
 phi = [0]
 
 # Define the simulation parameters
-current_function = forward_euler_step
+current_function = euler_cromer_step
 total_time = 60
-step_size = 0.05
+step_size = 0.01
 num_steps = int(total_time / step_size)
 time_array = np.arange(0, total_time + step_size, step_size)
 
@@ -47,11 +51,21 @@ plt.plot(time_array, theta)
 
 plt.xlabel("Time")
 plt.ylabel("Theta")
-plt.show()
+
+if SAVE_FIGURES:
+    plt.savefig(f"{SAVE_LOCATION}theta_{current_function.__name__}_{step_size}.png")
+    plt.clf()
+else:
+    plt.show()
 
 # Plot the energy as a function of time
 plt.plot(time_array, energy)
 
 plt.xlabel("Time")
 plt.ylabel("Energy")
-plt.show()
+
+if SAVE_FIGURES:
+    plt.savefig(f"{SAVE_LOCATION}energy_{current_function.__name__}_{step_size}.png")
+    plt.clf()
+else:
+    plt.show()
