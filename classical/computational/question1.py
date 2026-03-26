@@ -3,7 +3,7 @@ import numpy as np
 
 # Define global variables
 SAVE_FIGURES = True
-SAVE_LOCATION = "images/"
+SAVE_LOCATION = "images/q1/"
 
 
 def phi_dot(theta):
