@@ -90,6 +90,14 @@ def compute_inverse_fourier(fft: np.ndarray) -> Image.Image:
     return Image.fromarray(reconstructed_clipped.astype(np.uint8), mode="L")
 
 
+def compute_inverse_fourier_shifted(fft: np.ndarray) -> Image.Image:
+    """Invert the fftshift-ed spectrum — produces a phase-modulated negative."""
+    fft_shifted = np.fft.fftshift(fft)  # shift before inverting
+    reconstructed = np.fft.ifft2(fft_shifted).real
+    reconstructed_clipped = np.clip(reconstructed, 0, 255)
+    return Image.fromarray(reconstructed_clipped.astype(np.uint8), mode="L")
+
+
 def process_folder(
     input_folder: str,
     output_folder: str | None = None,
