@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
+from scipy.signal import find_peaks
 
 # Global variables
 SAVE_PLOTS = False
@@ -12,12 +13,11 @@ alpha = 1.0
 beta = -1.0
 gamma = 0.3
 omega = 1.5
-amp = 0.6
+amp = 0.5
 
 # Define simulation parameters
 t_span = (0, 1000)
 t_points = np.linspace(t_span[0], t_span[1], int(1e4))
-poincare_points = np.arange(t_span[0], t_span[1], 2 * np.pi)
 
 
 def duffing(t, y):
@@ -43,10 +43,13 @@ sol = solve_ivp(duffing, t_span, y0, dense_output=True)
 
 # Use the continuous solution for plotting
 y = sol.sol(t_points)
-poincare_y = sol.sol(poincare_points)
 
-# Poincare Section
-plt.plot(poincare_y[0], poincare_y[1], "o", markersize=1)
+# Find Poincare section points
+poincare_indices = find_peaks(y[2] % (2 * np.pi), distance=5)[0]
+poincare_y = y[:, poincare_indices]
+
+# Plot the Poincare section
+plt.plot(poincare_y[0], poincare_y[1], ".")
 plt.xlabel("Position")
 plt.ylabel("Velocity")
 save_show_plots(f"poincare_section_{amp}")
