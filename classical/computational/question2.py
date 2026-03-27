@@ -22,10 +22,10 @@ t_points = np.linspace(t_span[0], t_span[1], int(1e4))
 
 def duffing(t, y):
     x, v, phi = y
-    dxdt = v
-    dphidt = omega
     dvdt = -gamma * v - beta * x - alpha * x**3 + amp * np.cos(phi)
-    return [dxdt, dvdt, dphidt]
+
+    # Recall that dx/dt = v and dphi/dt = omega
+    return [v, dvdt, omega]
 
 
 def save_show_plots(name=""):
