@@ -45,7 +45,7 @@ sol = solve_ivp(duffing, t_span, y0, dense_output=True)
 y = sol.sol(t_points)
 
 
-def plot_pointcare():
+def plot_poincare():
     # Find Poincare section points
     poincare_indices = find_peaks(y[2] % (2 * np.pi), distance=5)[0]
     poincare_y = y[:, poincare_indices]
