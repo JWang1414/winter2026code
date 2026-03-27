@@ -13,10 +13,10 @@ alpha = 1.0
 beta = -1.0
 gamma = 0.3
 omega = 1.5
-amp = 0.5
+amp = 0.6
 
 # Define simulation parameters
-t_span = (0, 1000)
+t_span = (0, 500)
 t_points = np.linspace(t_span[0], t_span[1], int(1e4))
 
 
