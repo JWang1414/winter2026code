@@ -44,30 +44,40 @@ sol = solve_ivp(duffing, t_span, y0, dense_output=True)
 # Use the continuous solution for plotting
 y = sol.sol(t_points)
 
-# Find Poincare section points
-poincare_indices = find_peaks(y[2] % (2 * np.pi), distance=5)[0]
-poincare_y = y[:, poincare_indices]
 
-# Plot the Poincare section
-plt.plot(poincare_y[0], poincare_y[1], ".")
-plt.xlabel("Position")
-plt.ylabel("Velocity")
-save_show_plots(f"poincare_section_{amp}")
+def plot_pointcare():
+    # Find Poincare section points
+    poincare_indices = find_peaks(y[2] % (2 * np.pi), distance=5)[0]
+    poincare_y = y[:, poincare_indices]
 
-# # Time series of position
-# plt.plot(t_points, y[0], "-")
-# plt.xlabel("Time")
-# plt.ylabel("Position")
-# save_show_plots("time_series")
+    # Plot the Poincare section
+    plt.plot(poincare_y[0], poincare_y[1], ".")
+    plt.xlabel("Position")
+    plt.ylabel("Velocity")
+    save_show_plots(f"poincare_section_{amp}")
 
-# # Time series of velocity
-# plt.plot(t_points, y[1], "-")
-# plt.xlabel("Time")
-# plt.ylabel("Velocity")
-# save_show_plots("time_series_velocity")
 
-# # Phase plot of the results
-# plt.plot(y[0], y[1], "-")
-# plt.xlabel("Position")
-# plt.ylabel("Velocity")
-# save_show_plots(f"phase_plot_driven_{amp}")
+def plot_time_series():
+    # Time series of position
+    plt.plot(t_points, y[0], "-")
+    plt.xlabel("Time")
+    plt.ylabel("Position")
+    save_show_plots("time_series")
+
+    # Time series of velocity
+    plt.plot(t_points, y[1], "-")
+    plt.xlabel("Time")
+    plt.ylabel("Velocity")
+    save_show_plots("time_series_velocity")
+
+
+def plot_phase_plot():
+    # Phase plot of the results
+    plt.plot(y[0], y[1], "-")
+    plt.xlabel("Position")
+    plt.ylabel("Velocity")
+    save_show_plots(f"phase_plot_driven_{y0}")
+
+
+if __name__ == "__main__":
+    plot_phase_plot()
