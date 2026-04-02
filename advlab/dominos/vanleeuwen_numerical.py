@@ -83,7 +83,7 @@ tau = math.sqrt(
 )  # the time scale, equation (12)
 g = 9.8  # gravitational acceleration
 # parameter:
-Nt = 40  # number of separations s/h
+Nt = 80  # number of separations s/h
 # global variables:
 Ni = 0
 duration = 0  # time

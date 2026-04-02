@@ -1,18 +1,20 @@
 import math as m
 
+import numpy as np
 import scipy.integrate as integrate
 
 # Python implementation of Banks model for the domino effect
 # This model only considers the effect of one domino on the next and does not
 # consider the whole chain of dominoes. As well the collision is elastic.
 
-ratio_d = 0.17363  # d/h aspect ratio of dominoes
 # ratio_s = 2/6 # s/h ratio of distance between dominoes to the height of
 # the domino
-h = 4.445  # cm height of domino
-d = ratio_d * h  # cm width/depth of domino
+h = 4.8  # cm height of domino
+d = 0.75  # cm width/depth of domino
 # sep = ratio_s * h # cm separation between dominoes
 g = 9.81  # m/s^2 gravity
+
+ratio_d = d / h  # d/h aspect ratio of dominoes
 
 
 def omega_max(sep, g, h):
@@ -48,14 +50,13 @@ def ell_int(k, a, b):
     return integrate.quad(ell_func, a, b, args=k)
 
 
-num_sep = 40
+num_sep = 80
+ratio_s_list = np.linspace(0, 0.6, num_sep)
 values = []
 
-for i in range(1, num_sep):
-    ratio_s = i / num_sep
+for ratio_s in ratio_s_list:
     sep = ratio_s * h
     theta_c = m.asin(ratio_s)  # ratio_s is s/h
-    # print(theta_c)
     max_angular_velocity = omega_max(sep, g, h)
     dimensionless_vel = (sep / time(max_angular_velocity, theta_c, g, h)) / m.sqrt(
         g * h

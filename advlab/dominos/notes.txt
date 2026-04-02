@@ -1,0 +1,7 @@
+Erratic data points in the Van Leeuwen simulation:
+0.010, 3.702
+0.025, -1.228
+
+REDUCED CHI-SQUARED FROM COMBINED_MODELS
+Banks chi-squared: 296.98
+Van Leeuwen chi-squared: 74.24

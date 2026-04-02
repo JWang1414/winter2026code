@@ -10,6 +10,23 @@ SAVE_PLOTS = True
 SAVE_PATH = "images/"
 SKIP_PLOTS = False
 
+
+def reduced_chi_squared(y, yerr, y_model):
+    return np.sum(((y - y_model) / yerr) ** 2) / (len(y) - 1)
+
+
+def match_and_chi2(data, model):
+    close_list = []
+    model_copy = model.copy().iloc[:, 0].to_numpy()
+
+    for value in data["x"]:
+        closest = np.argmin(np.abs(model_copy - value))
+        close_list.append(closest)
+
+    y_model = model.iloc[close_list, 1]
+    return reduced_chi_squared(data["y"], data["yerr"], y_model)
+
+
 # Import data
 no_sandpaper_raw = pd.read_csv("nopaper.csv")
 sandpaper_raw = pd.read_csv("paper.csv")
@@ -40,6 +57,13 @@ for data in [nopaper_data, paper_data]:
     data["y"] = np.multiply(data["y"], y_scale)
     data["yerr"] = np.multiply(data["yerr"], y_scale)
 
+# Compute the reduced chi-squared
+banks_chi2 = match_and_chi2(nopaper_data, banks_raw)
+leeuwen_chi2 = match_and_chi2(nopaper_data, leeuwen_raw)
+
+print(f"Banks chi-squared: {banks_chi2:.2f}")
+print(f"Van Leeuwen chi-squared: {leeuwen_chi2:.2f}")
+
 # Plot the two models
 plt.plot(banks_raw.iloc[:, 0], banks_raw.iloc[:, 1], label="Banks")
 plt.plot(leeuwen_raw.iloc[:, 0], leeuwen_raw.iloc[:, 1], label="Van Leeuwen")
@@ -68,5 +92,6 @@ plt.tight_layout()
 
 if SAVE_PLOTS:
     plt.savefig(SAVE_PATH + "combined_models.png")
+
 if not SKIP_PLOTS:
     plt.show()
